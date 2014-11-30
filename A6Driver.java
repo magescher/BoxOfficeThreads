@@ -6,8 +6,8 @@ public class A6Driver
 
 {
 	/* TODO: are these variables declared correctly? should they be static? */
-	public static int leastCust = 100;
-	public static int mostCust = 1000;
+	public final static int LEAST_CUST = 100;
+	public final static int MOST_CUST = 1000;
 	
 	public static void main(String[] args)
 	{
@@ -19,8 +19,8 @@ public class A6Driver
 		// variable so that it is not re-seeded every call.
 		Random rand = new Random();
 
-	    int randomA = rand.nextInt((mostCust - leastCust) + 1) + leastCust;
-	    int randomB = rand.nextInt((mostCust - leastCust) + 1) + leastCust;
+	    int randomA = rand.nextInt((MOST_CUST - LEAST_CUST) + 1) + LEAST_CUST;
+	    int randomB = rand.nextInt((MOST_CUST - LEAST_CUST) + 1) + LEAST_CUST;
 		
 		Runnable officeA = new BoxOffice("Box Office A", randomA, theatre);
 		Runnable officeB = new BoxOffice("Box Office B", randomB, theatre);

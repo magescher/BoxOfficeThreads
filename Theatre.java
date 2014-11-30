@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class Theatre 
 {
-	/* TODO: Are these declared correctly ??. Should they be static, private, const, ect*/
-	private String[] rows = {"A","B","C","D","E","F","G","H","I","J","K","L",
+	private final String[] ROWS = {"A","B","C","D","E","F","G","H","I","J","K","L",
 			"M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 	public ArrayList<String> seats = new ArrayList<String>();
 	private ArrayList<StringBuffer> availability = new ArrayList<StringBuffer>();
@@ -20,7 +19,7 @@ public class Theatre
 	{
 	/*	Orders seats in array from most desirous to least desirous
 	 *	Allocates from center most seats, moves outward in each direction */                   
-		for(String s: rows)
+		for(String s: ROWS)
 		{
 			seats.add(s + CENTER_LEFT); // Center most seat in each row
 			seats.add(s + CENTER_RIGHT);
