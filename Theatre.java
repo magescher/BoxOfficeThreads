@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Theatre 
 {
-	private final String[] ROWS = {"A","B","C","D","E","F","G","H","I","J","K","L",
-			"M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+	private final String[] ROWS = {"A","B","C","D","E","F","G","H","J","K","L",
+			"M","N","P","Q","R","S","T","U","V","W","X","Y","Z"};
 	public ArrayList<String> seats = new ArrayList<String>();
 	private ArrayList<StringBuffer> availability = new ArrayList<StringBuffer>();
 	private final StringBuffer AVAILABLE = new StringBuffer("available");
