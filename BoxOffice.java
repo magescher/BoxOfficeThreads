@@ -6,7 +6,13 @@ public class BoxOffice implements Runnable
 	private static final int DELAY = 1000;
 	private int numCust;
 	private Theatre theatre; 
-
+	
+	/**
+	 * Constructs a BoxOffice object 
+	 * @param name the name of the office 
+	 * @param num the number of customers in line 
+	 * @param t	the theater for which the BoxOffice is selling tickets for
+	 */
 	BoxOffice(String name, int num, Theatre t) 
 	{ 
 		officeName = name; 
@@ -46,13 +52,11 @@ public class BoxOffice implements Runnable
 	     System.out.println(officeName + "- All customers have been served or the show is sold out. Exiting...");
 	}
 	
-	/*
-	printTicketSeat(seat)  
-	Input: seat is the location of an available seat in the theater.   
-	output: A ticket for that seat is printed to the screen 
-	– leave it on the screen long enough to be read easily by the client. 
-	*/
 	// TODO: add delay on display?
+	/**
+	 * Prints the ticket to the screen 
+	 * @param seat the seat to be printed 
+	 */
 	public void printTicketSeat(String seat) { System.out.println(officeName + ": Reserved seat #" + seat);}
 	
 }
