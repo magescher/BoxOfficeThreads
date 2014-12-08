@@ -1,62 +1,57 @@
 package assignment6;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Random;
+
 public class BoxOffice implements Runnable 
 {
 	private String officeName;
-	private static final int DELAY = 1000;
-	private int numCust;
+	private Queue<Integer> customers = new LinkedList<Integer>();
 	private Theatre theatre; 
-	
-	/**
-	 * Constructs a BoxOffice object 
-	 * @param name the name of the office 
-	 * @param num the number of customers in line 
-	 * @param t	the theater for which the BoxOffice is selling tickets for
-	 */
-	BoxOffice(String name, int num, Theatre t) 
+	public final static int LEAST_CUST = 100; // min number of customers in line 
+	public final static int MOST_CUST = 1000; // max number of customers in line 
+
+	BoxOffice(String name, Theatre t) 
 	{ 
 		officeName = name; 
-		numCust = num;
 		theatre = t;
+		
+		// Initialize queue of clients
+		Random rand = new Random();
+	    int numCust = rand.nextInt((MOST_CUST - LEAST_CUST) + 1) + LEAST_CUST;
+	    for(int i = 0; i < numCust ; i ++) { customers.add(1); } 
 	}
 	
 	@Override
 	public void run() 
 	{
-		System.out.println("Running " +  officeName );
-		System.out.println(officeName + " : " + numCust + " customers");
-		try 
+		System.out.println(officeName + " open. Initial customers in line: " + customers.size());
+		while(!theatre.isSoldOut()) 
 		{
-			while(numCust != 0) 
+			synchronized(this)
 			{
-				synchronized(this)
-				{
-					String seat = theatre.bestAvailableSeat();  
-					if (!seat.equals("-1")) 
-					{   // Seat Available 
-						theatre.markAvailableSeatTaken(seat);     
-						printTicketSeat(seat);
-						numCust --;
-					}    
-					else 
-					{ 	// Sold out 
-						System.out.println(officeName + "- Sorry, we just sold out!"); 
-						Thread.sleep(DELAY);
-						break; 
-					}
-				}
+				String seat = theatre.bestAvailableSeat();  
+				if (!seat.equals("-1")) 
+				{   // Seat Available 
+					theatre.markAvailableSeatTaken(seat);     
+					printTicketSeat(seat);
+					customers.poll(); // Serve first customer in line and remove them from queue
+					customers.add(1); // Add new customer each time one is served to ensure line is never empty
+				}    
+				else { break; }       // Sold out- (show could sell out while in loop. Unlikely, but could happen)
 			}
-		// TODO: Will this ever happen?	
-	     } catch (InterruptedException e) { System.out.println(officeName + " interrupted.");}
-		
-	     System.out.println(officeName + "- All customers have been served or the show is sold out. Exiting...");
+		}
+	    System.out.println(officeName + "- The show is sold out. Please come back for future shows. Exiting...");
 	}
 	
+	/*
+	printTicketSeat(seat)  
+	Input: seat is the location of an available seat in the theater.   
+	output: A ticket for that seat is printed to the screen 
+	– leave it on the screen long enough to be read easily by the client. 
+	*/
 	// TODO: add delay on display?
-	/**
-	 * Prints the ticket to the screen 
-	 * @param seat the seat to be printed 
-	 */
 	public void printTicketSeat(String seat) { System.out.println(officeName + ": Reserved seat #" + seat);}
 	
 }

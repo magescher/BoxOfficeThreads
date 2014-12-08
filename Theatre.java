@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Theatre 
 {
 	private static final String[] ROWS = {"A","B","C","D","E","F","G","H","J","K","L",
-			"M","N","P","Q","R","S","T","U","V","W","X","Y","Z"};
+			"M","N","P","Q","R","S","T","U","V","W","X","Y","Z", "AA"};
 	public ArrayList<String> seats = new ArrayList<String>();
 	private ArrayList<StringBuffer> availability = new ArrayList<StringBuffer>();
 	private static final StringBuffer AVAILABLE = new StringBuffer("available");
@@ -13,7 +13,7 @@ public class Theatre
 	private static final int CENTER_RIGHT = 114;  // One of two center most seats
 	private static final int CENTER_LEFT = 115; 
 	private static final int LEFT_MOST = 128;     // Left most seat in each row 
-	private int offset = 3;                // Seat offset for first row
+	private int firstRowOffset = 3;               // Seat offset for first row
 	
 	/**
 	 * Constructs a Theater object  
@@ -26,16 +26,19 @@ public class Theatre
 		{
 			seats.add(s + CENTER_LEFT); // Center most seat in each row
 			seats.add(s + CENTER_RIGHT);
-			for (int i = 1; CENTER_LEFT + i <= LEFT_MOST - offset; i ++) 
+			
+			for (int i = 1; CENTER_LEFT + i <= LEFT_MOST - firstRowOffset; i ++) 
 			{ 
+				if(s.equals("AA") && i == 4) { i += 6; } // Skip Handicapped seats
 				seats.add(s + (CENTER_LEFT + i)); 
 				seats.add(s + (CENTER_RIGHT - i)); 
 			}
-			offset = 0;                 // offset only applies for first row
+			firstRowOffset = 0;                 // offset only applies for first row
 		}
 		// Populate availability array to correspond to seat array (loose linked-list)
 		for(int i = 0; i < seats.size(); i ++) { availability.add(AVAILABLE); }
 	}
+	
 	
 	/**
 	 * Method checks if there are still seats available in the theater or 
@@ -51,9 +54,13 @@ public class Theatre
 	
 	/**
 	 * Finds the next best available seat in the theater 
+	 * PARAMETERS ARE UNNECESSARY FOR THIS IMPLEMENTATION
+	 * BUT THEY WERE REQUIRED SO WE PUT THEM IN TO MEET REQUIREMENTS
+	 * @param t- seat configuration
+	 * @param customer - next customer in line
 	 * @return the index of the available seat; -1 if no seat is available 
 	 */
-	public String bestAvailableSeat(/* TODO: taylor these inputs to match requirements */)
+	public String bestAvailableSeat(Theatre t, Integer customer)
 	{
 		if(isSoldOut()) { return "-1"; }
 		int index = availability.indexOf(AVAILABLE);
