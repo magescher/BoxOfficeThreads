@@ -6,7 +6,6 @@ public class A6Driver
 	public static void main(String[] args)
 	{
 		Theatre theatre = new Theatre();  
-		System.out.println(theatre.seats);
 		
 		Runnable officeA = new BoxOffice("Box Office A", theatre);
 		Runnable officeB = new BoxOffice("Box Office B", theatre);
