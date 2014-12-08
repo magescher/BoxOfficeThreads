@@ -1,15 +1,13 @@
 package assignment6;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Theatre 
 {
 	private static final String[] ROWS = {"A","B","C","D","E","F","G","H","J","K","L",
 			"M","N","P","Q","R","S","T","U","V","W","X","Y","Z", "AA"};
-	public ArrayList<String> seats = new ArrayList<String>();
-	private ArrayList<StringBuffer> availability = new ArrayList<StringBuffer>();
-	private static final StringBuffer AVAILABLE = new StringBuffer("available");
-	private static final StringBuffer TAKEN = new StringBuffer("taken");
+	public Queue<String> seats = new LinkedList<String>();
 	private static final int CENTER_RIGHT = 114;  // One of two center most seats
 	private static final int CENTER_LEFT = 115; 
 	private static final int LEFT_MOST = 128;     // Left most seat in each row 
@@ -24,8 +22,8 @@ public class Theatre
 	 *	Allocates from center most seats, moves outward in each direction */                   
 		for(String s: ROWS)
 		{
-			seats.add(s + CENTER_LEFT); // Center most seat in each row
-			seats.add(s + CENTER_RIGHT);
+			seats.add(s + CENTER_LEFT); 
+			seats.add(s + CENTER_RIGHT); 
 			
 			for (int i = 1; CENTER_LEFT + i <= LEFT_MOST - firstRowOffset; i ++) 
 			{ 
@@ -35,22 +33,7 @@ public class Theatre
 			}
 			firstRowOffset = 0;                 // offset only applies for first row
 		}
-		// Populate availability array to correspond to seat array (loose linked-list)
-		for(int i = 0; i < seats.size(); i ++) { availability.add(AVAILABLE); }
 	}
-	
-	
-	/**
-	 * Method checks if there are still seats available in the theater or 
-	 * if it has been sold out. 
-	 * @return true, if theater is sold out; false, it there are seats available 
-	 */
-	public boolean isSoldOut()
-	{
-		if (availability.contains(AVAILABLE)) { return false; }
-		else { return true; }
-	}
-	
 	
 	/**
 	 * Finds the next best available seat in the theater 
@@ -58,23 +41,21 @@ public class Theatre
 	 * BUT THEY WERE REQUIRED SO WE PUT THEM IN TO MEET REQUIREMENTS
 	 * @param t- seat configuration
 	 * @param customer - next customer in line
-	 * @return the index of the available seat; -1 if no seat is available 
+	 * @return a string containing the best available seat; null if no seat is available 
 	 */
-	public String bestAvailableSeat(Theatre t, Integer customer)
-	{
-		if(isSoldOut()) { return "-1"; }
-		int index = availability.indexOf(AVAILABLE);
-		return seats.get(index); // Returns best available seat
-	}
+	public String bestAvailableSeat(Theatre t, Integer customer) { return seats.peek(); }
+	
+	/**
+	 * Determines if theatre seats sold out
+	 * @return a string containing the best available seat; null if no seat is available 
+	 */
+	public String isSoldOut() { return seats.peek(); }
 	
 	/**
 	 * Marks the seat as taken (no longer available to sell) 
+	 * PARAM TO MEET REQUIREMENTS
 	 * @param seat, the seat to be marked as taken 
 	 */
-	public void markAvailableSeatTaken(String seat)
-	{
-		int i = seats.indexOf(seat);
-		availability.set(i, TAKEN);
-	}
+	public void markAvailableSeatTaken(String seat) { seats.remove(); }
 
 }

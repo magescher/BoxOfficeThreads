@@ -16,7 +16,6 @@ public class BoxOffice implements Runnable
 	{ 
 		officeName = name; 
 		theatre = t;
-		
 		// Initialize queue of clients
 		Random rand = new Random();
 	    int numCust = rand.nextInt((MOST_CUST - LEAST_CUST) + 1) + LEAST_CUST;
@@ -25,21 +24,21 @@ public class BoxOffice implements Runnable
 	
 	@Override
 	public void run() 
-	{
+	{   // this function could be made shorter. written as is to match requirements
 		System.out.println(officeName + " open. Initial customers in line: " + customers.size());
-		while(!theatre.isSoldOut()) 
-		{
+		while(theatre.isSoldOut() != null)
+		{	
 			synchronized(this)
 			{
-				String seat = theatre.bestAvailableSeat();  
-				if (!seat.equals("-1")) 
-				{   // Seat Available 
+				String seat = theatre.bestAvailableSeat(theatre,customers.peek());  
+				if(seat != null)
+				{
 					theatre.markAvailableSeatTaken(seat);     
 					printTicketSeat(seat);
 					customers.poll(); // Serve first customer in line and remove them from queue
 					customers.add(1); // Add new customer each time one is served to ensure line is never empty
-				}    
-				else { break; }       // Sold out- (show could sell out while in loop. Unlikely, but could happen)
+				}
+				else { break; }       
 			}
 		}
 	    System.out.println(officeName + "- The show is sold out. Please come back for future shows. Exiting...");
