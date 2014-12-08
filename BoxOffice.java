@@ -4,14 +4,22 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
+/**
+ * Class to run box office logic and print tickets
+ */
 public class BoxOffice implements Runnable 
 {
 	private String officeName;
-	private Queue<Integer> customers = new LinkedList<Integer>();
+	private Queue<Integer> customers = new LinkedList<Integer>(); 	//the line of customers 
 	private Theatre theatre; 
 	public final static int LEAST_CUST = 100; // min number of customers in line 
 	public final static int MOST_CUST = 1000; // max number of customers in line 
-
+	
+	/**
+	 * Constructs a BoxOffice object
+	 * @param name the name of the box office 
+	 * @param t the theater it is associated with 
+	 */
 	BoxOffice(String name, Theatre t) 
 	{ 
 		officeName = name; 
@@ -23,6 +31,10 @@ public class BoxOffice implements Runnable
 	}
 	
 	@Override
+	/**
+	 * Sells the best available ticket to the next person in line. 
+	 * Overrides the run() method in the Runnable Interface 
+	 */
 	public void run() 
 	{   // this function could be made shorter. written as is to match requirements
 		System.out.println(officeName + " open. Initial customers in line: " + customers.size());
@@ -44,13 +56,10 @@ public class BoxOffice implements Runnable
 	    System.out.println(officeName + "- The show is sold out. Please come back for future shows. Exiting...");
 	}
 	
-	/*
-	printTicketSeat(seat)  
-	Input: seat is the location of an available seat in the theater.   
-	output: A ticket for that seat is printed to the screen 
-	– leave it on the screen long enough to be read easily by the client. 
-	*/
-	// TODO: add delay on display?
+	/**
+	 * Prints a given ticket to the screen 
+	 * @param seat the ticket to be printed 
+	 */
 	public void printTicketSeat(String seat) { System.out.println(officeName + ": Reserved seat #" + seat);}
 	
 }

@@ -3,6 +3,9 @@ package assignment6;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Class to construct seating queue by highest priority and assign seats
+ */
 public class Theatre 
 {
 	private static final String[] ROWS = {"A","B","C","D","E","F","G","H","J","K","L",
@@ -36,25 +39,25 @@ public class Theatre
 	}
 	
 	/**
-	 * Finds the next best available seat in the theater 
-	 * PARAMETERS ARE UNNECESSARY FOR THIS IMPLEMENTATION
-	 * BUT THEY WERE REQUIRED SO WE PUT THEM IN TO MEET REQUIREMENTS
-	 * @param t- seat configuration
-	 * @param customer - next customer in line
+	 * Finds the next best available seat in the theater. 
+	 * Parameters are unnecessary for this configuration
+	 * but kept to meet requirements
+	 * @param t seat configuration
+	 * @param customer next customer in line
 	 * @return a string containing the best available seat; null if no seat is available 
 	 */
 	public String bestAvailableSeat(Theatre t, Integer customer) { return seats.peek(); }
 	
 	/**
-	 * Determines if theatre seats sold out
+	 * Determines if theater seats sold out
 	 * @return a string containing the best available seat; null if no seat is available 
 	 */
 	public String isSoldOut() { return seats.peek(); }
 	
 	/**
-	 * Marks the seat as taken (no longer available to sell) 
-	 * PARAM TO MEET REQUIREMENTS
-	 * @param seat, the seat to be marked as taken 
+	 * Marks the seat as taken (no longer available to sell).
+	 * Parameter unused but kept to meet requirements
+	 * @param seat the seat to be marked as taken 
 	 */
 	public void markAvailableSeatTaken(String seat) { seats.remove(); }
 
