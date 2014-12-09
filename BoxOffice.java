@@ -1,6 +1,3 @@
-// Authors: Abigail Johnson, Carlos Rios 
-// EE422C-Assignment 6
-
 package assignment6;
 
 import java.util.LinkedList;

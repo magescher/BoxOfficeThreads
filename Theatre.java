@@ -1,6 +1,3 @@
-// Authors: Abigail Johnson, Carlos Rios 
-// EE422C-Assignment 6
-
 package assignment6;
 
 import java.util.LinkedList;
@@ -42,15 +39,9 @@ public class Theatre
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Finds the next best available seat in the theater. 
 	 * Parameters are unnecessary for this configuration
 	 * but kept to meet requirements
-=======
-	 * Finds the next best available seat in the theater 
-	 * PARAMETERS ARE UNNECESSARY FOR THIS IMPLEMENTATION
-	 * BUT THEY WERE REQUIRED SO WE PUT THEM IN TO MEET REQUIREMENTS
->>>>>>> af5775a9fd8b6995bd33bbabbb50401764a45da2
 	 * @param t seat configuration
 	 * @param customer next customer in line
 	 * @return a string containing the best available seat; null if no seat is available 
